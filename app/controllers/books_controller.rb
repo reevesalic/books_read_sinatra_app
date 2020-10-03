@@ -41,9 +41,13 @@ class BooksController < ApplicationController
      # UPDATE
      get '/books/:id/edit' do
        @book = Book.find(params[:id])
-          # if authorized_to_edit(@book)
+          if authorized_to_edit?(@book)
        erb :'/books/edit'
+          else
+               flash[:error] = "You are not authorized to edit this book."
+               redirect '/books'
      end
+end
 
      # sends params to update new book
      patch '/books/:id' do
@@ -55,7 +59,12 @@ class BooksController < ApplicationController
           # DELETE
      delete '/books/:id' do
        @book = Book.find(params[:id])
+       if authorized_to_edit?(@book)
        @book.destroy
        redirect '/books'
+       else
+          flash[:error] = "You are not authorized to delete this book."
+               redirect '/books'
+       end
      end
 end

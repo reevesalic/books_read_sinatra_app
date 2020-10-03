@@ -26,13 +26,11 @@ helpers do
   !!current_user #(!! = truthy or falsey)
   end
 
-  
-
     def current_user
       @current_user ||= User.find_by(id: session[:user_id])
-
     end
-    def authorized_to_edit(book)
+
+    def authorized_to_edit?(book)
       book.user == current_user
     end
   end
