@@ -3,5 +3,5 @@
 <% @books.each do |book| %>
  <h4><a href="/books/<%= book.id %>"><%= book.title %></a></h4>
 <%= book.author %></p>
-<img src="<%= book.image_url %>"> <br>
+
 <% end %>
