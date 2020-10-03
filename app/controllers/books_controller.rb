@@ -23,10 +23,13 @@ end
     
 
      post '/books' do
-       @book = Book.new(title: params[:title], author: params[:author], user_id: current_user.id)
-       if @book.save
+       if params[:title] != "" && params[:author] != ""
+          @book = Book.create(title: params[:title], author: params[:author], user_id: current_user.id)
+     #   if @book.save
+     flash[:message] = "Added a new book successfully."
         redirect "/books/#{@book.id}"
         else
+          flash[:error] = "Add a new book failed. Please enter all information."
         redirect '/books/new'
      end
 
