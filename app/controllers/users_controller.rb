@@ -1,23 +1,25 @@
 class UsersController < ApplicationController
 
      get "/login" do
+          
+          if !logged_in?
      erb :'/users/login'
+          else
+               redirect to '/books'
      end
+end
 
      post "/login" do
           #finds user
-          user = User.find_by(username: params[:username])
+          user = User.find_by(:username => params[:username])
           #authenticates user
           
           if user && user.authenticate(params[:password])
+               session[:user_id] = user.id
                
-          #create key/value pair (using id) in the session hash for the user to actually log them in
-          
-          session[:user_id] = user.id
-          
-          #redirect to user's show
-          redirect "/users/#{user.id}"
-          else
+               redirect to "/books"
+           else
+          flash[:error] = "Username and/or password were incorrect."
           redirect '/login'
           end
      end
@@ -36,7 +38,7 @@ class UsersController < ApplicationController
           @user = User.create(params)
         
           session[:user_id] = @user.id
-          redirect "/users/#{@user.id}"
+          redirect "/books"
      end
 
      get '/logout' do

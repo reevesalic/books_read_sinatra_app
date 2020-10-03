@@ -1,10 +1,15 @@
 class BooksController < ApplicationController
-#READ
+
+
+     #READ
      get '/books' do
+          if !logged_in?
+               redirect '/'
+          else
        @books = Book.all
        erb :'/books/index'
      end
-
+end
 
      # CREATE
      get '/books/new' do
