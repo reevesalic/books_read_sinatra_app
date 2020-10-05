@@ -16,22 +16,22 @@ class ApplicationController < Sinatra::Base
     if logged_in?
       redirect "/users/#{current_user.id}"
     else
-    erb :welcome
+      erb :welcome
+    end
   end
-end
 
 helpers do
 
   def logged_in?
-  !!current_user #(!! = truthy or falsey)
+    !!current_user #(!! = truthy or falsey)
   end
 
-    def current_user
-      @current_user ||= User.find_by(id: session[:user_id])
-    end
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
 
-    def authorized_to_edit?(book)
-      book.user == current_user
+  def authorized_to_edit?(book)
+    book.user == current_user
     end
   end
 

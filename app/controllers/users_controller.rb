@@ -1,51 +1,43 @@
 class UsersController < ApplicationController
 
      get "/login" do
-          
-          if !logged_in?
-
-               
-     erb :'/users/login'
-          else
-               redirect to '/books'
+       if !logged_in?
+         erb :'/users/login'
+       else
+         redirect to '/books'
+       end
      end
-end
 
      post "/login" do
-          #finds user
-          user = User.find_by(:username => params[:username])
-          #authenticates user
-          
-          if user && user.authenticate(params[:password])
-               session[:user_id] = user.id
-               
-               redirect to "/books"
-           else
-          flash[:error] = "Username and/or password were incorrect."
-          redirect '/login'
-          end
+       #finds user
+       user = User.find_by(:username => params[:username])
+       #authenticates user
+       if user && user.authenticate(params[:password])
+         session[:user_id] = user.id
+         redirect to "/books"
+       else
+         flash[:error] = "Username and/or password were incorrect."
+         redirect '/login'
+       end
      end
 
      get "/users/:id" do
-
-          @user = User.find_by(id: params[:id])
-          erb :'/users/show'
+       @user = User.find_by(id: params[:id])
+       erb :'/users/show'
      end
 
      get '/signup' do
-          erb :'/users/signup'
+       erb :'/users/signup'
      end
 
      post '/users' do
-          @user = User.create(params)
-        
-          session[:user_id] = @user.id
-          redirect "/books"
+       @user = User.create(params)
+       session[:user_id] = @user.id
+       redirect "/books"
      end
 
      get '/logout' do
-          session.clear
-          redirect '/'
+       session.clear
+       redirect '/'
      end
-
 end
