@@ -4,12 +4,14 @@ class BooksController < ApplicationController
      #READ
      get '/books' do
        if !logged_in?
+       
          redirect '/'
        else
-         @books = Book.all
-         erb :'/books/index'
+       @books = current_user.sorted_books
+        erb :'/books/index'
        end
-     end
+      end
+     
 
      # CREATE
      get '/books/new' do
@@ -34,8 +36,12 @@ class BooksController < ApplicationController
      end
 
      get '/books/:id' do
-       @book = Book.find(params[:id])
+      if logged_in?
+       @book = Book.find_by_id(params[:id])
        erb :'/books/show'
+      else
+        redirect to'/'
+      end
      end
 
      # UPDATE
