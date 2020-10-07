@@ -54,11 +54,16 @@ class BooksController < ApplicationController
 
      # sends params to update new book
      patch '/books/:id' do
+      # binding.pry
+      
        @book = Book.find(params[:id])
-       @book.update(title: params[:title], author: params[:author], image_url: params[:image_url])
+       if @book.update(title: params[:title], author: params[:author])
        redirect "/books"
+       else
+        flash[:error] = "Add a new book failed. #{@book.errors.full_messages.to_sentence}."
+           redirect "/books/#{@book.id}/edit"
      end
-
+    end
           # DELETE
      delete '/books/:id' do
        @book = Book.find(params[:id])
