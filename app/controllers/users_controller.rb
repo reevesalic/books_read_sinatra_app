@@ -31,10 +31,17 @@ class UsersController < ApplicationController
      end
 
      post '/users' do
+      if 
+       params[:username] != "" 
        @user = User.create(params)
        session[:user_id] = @user.id
+       
        redirect "/books"
+     else
+      # flash[:error] = "Username cannot be blank."
+       erb :'/users/signup'
      end
+    end
 
      get '/logout' do
        session.clear
