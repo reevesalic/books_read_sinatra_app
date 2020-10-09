@@ -1,6 +1,4 @@
 
-
-
 ## Overview
 
 The goal of this project is to build an application where users can keep track of the books they've read. By keeping track of the books they've read, it can prevent them from purchasing a book they have read. 

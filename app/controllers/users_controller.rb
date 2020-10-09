@@ -38,7 +38,7 @@ class UsersController < ApplicationController
        
        redirect "/books"
      else
-      # flash[:error] = "Username cannot be blank."
+      flash[:error] = "Username already exists."
        erb :'/users/signup'
      end
     end
