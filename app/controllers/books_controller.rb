@@ -54,15 +54,13 @@ class BooksController < ApplicationController
 
      # sends params to update new book
      patch '/books/:id' do
-      # binding.pry
-      
        @book = Book.find(params[:id])
        if @book.update(title: params[:title], author: params[:author])
-       redirect "/books"
+         redirect "/books"
        else
         flash[:error] = "Add a new book failed. #{@book.errors.full_messages.to_sentence}."
            redirect "/books/#{@book.id}/edit"
-     end
+      end
     end
           # DELETE
      delete '/books/:id' do
@@ -73,6 +71,6 @@ class BooksController < ApplicationController
        else
          flash[:error] = "You are not authorized to delete this book."
                redirect '/books'
-         end
-       end
+      end
+    end
 end

@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20200930143317) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
-    t.string   "image_url"
     t.string   "author"
     t.integer  "user_id"
     t.datetime "created_at", null: false

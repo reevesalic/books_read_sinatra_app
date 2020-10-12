@@ -35,11 +35,9 @@ class UsersController < ApplicationController
        params[:username] != "" 
        @user = User.create(params)
        session[:user_id] = @user.id
-       
        redirect "/books"
      else
-      flash[:error] = "Username already exists."
-       erb :'/users/signup'
+      erb :'/users/signup'
      end
     end
 
