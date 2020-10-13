@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
 
   def sorted_books
-    self.books.sort_by { |book| book.author }
- end
- 
+     self.books.sort_by { |book| book.author }
+  end
 end
