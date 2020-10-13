@@ -19,13 +19,8 @@ class UsersController < ApplicationController
          flash[:error] = "Username and/or password were incorrect."
          redirect '/login'
        end
-     end
-
-     get "/users/:id" do
-       @user = User.find_by(id: params[:id])
-       erb :'/users/show'
-     end
-
+      end
+      
      get '/signup' do
        erb :'/users/signup'
      end
